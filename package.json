@@ -14,7 +14,7 @@
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
     "db:migration": "supabase migration new",
-    "db:push": "supabase db push",
+    "db:push": "supabase db push --remote",
     "db:types": "supabase gen types typescript --linked --schema public > src/types/database.types.ts && prettier --write src/types/database.types.ts"
   },
   "dependencies": {

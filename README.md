@@ -83,6 +83,15 @@ Dark, crimson and antique gold. Cinzel for headings (`font-display`), Inter for 
 - **Contrast:** all text pairings used by the components meet WCAG AA (4.5:1), borders and focus rings 3:1. Keep body text on `foreground`/`muted`/`subtle` and don't put `crimson-500` or darker text on dark backgrounds.
 - **Branding:** no official band logo or Deathbat as site branding.
 
+## Layout
+
+Every page gets the header, footer and a skip link from `src/app/layout.tsx`. Page content renders inside `<main>`, so pages start with a `Container` (`@/components/layout/container`) and a `PageHeader` (the page's `h1`), not their own `<main>`.
+
+- **Navigation:** sections are listed once in `src/lib/nav.ts` (header, mobile menu and footer all read from it). The current section gets `aria-current="page"`.
+- **Header:** `src/components/layout/site-header.tsx`. Shows "Log in" when logged out and your avatar when logged in (`getCurrentUser()` in `src/lib/auth/current-user.ts`, cached per request). That part sits in a `<Suspense>` because `cacheComponents` is on: anything reading cookies must be inside a Suspense boundary (or a route with a `loading.tsx`).
+- **Mobile menu:** below `md`. Closes on Escape, on navigation and when the window grows past `md`; locks page scroll while open.
+- **States:** `Skeleton` and `EmptyState` in `@/components/ui`. Default page skeleton in `src/app/loading.tsx` (sections can add their own, see `songs/loading.tsx`), plus `error.tsx`, `global-error.tsx` and `not-found.tsx`.
+
 ## Branches
 
 - `main`: production

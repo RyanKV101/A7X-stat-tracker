@@ -15,7 +15,9 @@
     "db:reset": "supabase db reset",
     "db:migration": "supabase migration new",
     "db:push": "supabase db push --remote",
-    "db:types": "supabase gen types typescript --linked --schema public > src/types/database.types.ts && prettier --write src/types/database.types.ts"
+    "db:types": "supabase gen types typescript --linked --schema public > src/types/database.types.ts && prettier --write src/types/database.types.ts",
+    "discography:fetch": "node --env-file-if-exists=.env.local scripts/discography/fetch-spotify.mts",
+    "db:seed": "node --env-file-if-exists=.env.local scripts/discography/seed.mts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

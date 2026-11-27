@@ -10,16 +10,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  EmptyState,
   Input,
   Select,
+  Skeleton,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/ui";
+import { SongsIcon } from "@/components/icons";
+
 import { ModalDemo } from "./modal-demo";
 
-export const metadata: Metadata = { title: "Design system - A7X Stat Tracker" };
+export const metadata: Metadata = { title: "Design system" };
 
 const swatches: { group: string; colors: { name: string; className: string; hex: string }[] }[] = [
   {
@@ -84,7 +88,7 @@ export default function DesignPage() {
   if (process.env.NODE_ENV === "production") notFound();
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-16 px-6 py-16">
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-16 px-6 py-16">
       <header className="flex flex-col gap-3">
         <p className="text-eyebrow text-gold-400 font-semibold uppercase">Dev only</p>
         <h1 className="text-gold-gradient text-display">Design system</h1>
@@ -280,6 +284,23 @@ export default function DesignPage() {
           <Avatar name="Broken image" src="/does-not-exist.png" size="xl" />
         </div>
       </Section>
-    </main>
+
+      <Section title="Skeleton">
+        <div className="flex max-w-xs flex-col gap-3">
+          <Skeleton className="aspect-square w-full rounded-md" />
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-3 w-1/2" />
+        </div>
+      </Section>
+
+      <Section title="Empty state">
+        <EmptyState
+          icon={<SongsIcon />}
+          title="No songs found"
+          description="Try another album or clear your search."
+          action={<Button variant="outline">Clear filters</Button>}
+        />
+      </Section>
+    </div>
   );
 }

@@ -21,25 +21,27 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Scripts
 
-| Command                       | What it does                                                     |
-| ----------------------------- | ---------------------------------------------------------------- |
-| `npm run dev`                 | Start the dev server                                             |
-| `npm run build`               | Production build                                                 |
-| `npm run start`               | Run the production build                                         |
-| `npm run lint`                | ESLint                                                           |
-| `npm run typecheck`           | TypeScript check                                                 |
-| `npm run format`              | Format all files with Prettier                                   |
-| `npm run format:check`        | Check formatting                                                 |
-| `npm run db:start`            | Start the local Supabase stack (needs Docker)                    |
-| `npm run db:stop`             | Stop the local Supabase stack                                    |
-| `npm run db:reset`            | Rebuild the local DB from migrations and seed                    |
-| `npm run db:migration <name>` | Create a new migration file                                      |
-| `npm run db:push`             | Apply migrations to the linked Supabase project                  |
-| `npm run db:types`            | Regenerate `src/types/database.types.ts` from the linked project |
+| Command                       | What it does                                                               |
+| ----------------------------- | -------------------------------------------------------------------------- |
+| `npm run dev`                 | Start the dev server                                                       |
+| `npm run build`               | Production build                                                           |
+| `npm run start`               | Run the production build                                                   |
+| `npm run lint`                | ESLint                                                                     |
+| `npm run typecheck`           | TypeScript check                                                           |
+| `npm run format`              | Format all files with Prettier                                             |
+| `npm run format:check`        | Check formatting                                                           |
+| `npm run db:start`            | Start the local Supabase stack (needs Docker)                              |
+| `npm run db:stop`             | Stop the local Supabase stack                                              |
+| `npm run db:reset`            | Rebuild the local DB from migrations and seed                              |
+| `npm run db:migration <name>` | Create a new migration file                                                |
+| `npm run db:push`             | Apply migrations to the linked Supabase project                            |
+| `npm run db:types`            | Regenerate `src/types/database.types.ts` from the linked project           |
+| `npm run discography:fetch`   | Fetch albums and tracks from Spotify into `supabase/seed/discography.json` |
+| `npm run db:seed`             | Load `discography.json` into the albums and songs tables                   |
 
 ## Supabase
 
-The hosted project runs in an EU region (Frankfurt). The Supabase CLI is installed as a dev dependency, so use it through `npx supabase`.
+The hosted project runs in an EU region (West EU, Ireland). The Supabase CLI is installed as a dev dependency, so use it through `npx supabase`.
 
 One-time setup:
 
@@ -60,6 +62,14 @@ Clients live in `src/lib/supabase/`:
 - `client.ts`: for Client Components
 - `server.ts`: for Server Components, Server Actions and Route Handlers
 - `proxy.ts`: refreshes the auth session on every request (wired up in `src/proxy.ts`)
+
+## Discography data
+
+Albums and songs come from the Spotify Web API and are stored in `supabase/seed/discography.json`, which is committed, so seeding doesn't need Spotify access.
+
+- **What's included** is set in `scripts/discography/releases.json`: the 8 studio albums, the EPs (Warmness on the Soul if it's on Spotify, Black Reign) and Diamonds in the Rough (B-sides). The studio bonus tracks of The Stage deluxe edition (Dose + covers) are stored as disc 2 of The Stage. Live albums and live tracks are left out. Release years are the original ones, not Spotify's reissue dates.
+- **Fetch** (`npm run discography:fetch`) needs `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` from an app on the [Spotify dashboard](https://developer.spotify.com/dashboard) (client credentials, no user login). It pins the chosen edition of every release in the JSON, so later runs pick the same one; use `-- --refresh` to resolve them again. At the end it lists Spotify releases that aren't in `releases.json`, so non-album singles can be added there.
+- **Seed** (`npm run db:seed`) uses the service role key. Albums upsert on `slug`; songs are matched on Spotify URI (or position + title), so re-running never creates duplicates and song ids (and the plays pointing at them) stay the same. `-- --dry-run` shows what would change, `-- --prune` deletes songs that are no longer in the JSON.
 
 ## Project structure
 

@@ -1,0 +1,139 @@
+{
+  "$comment": "Which releases end up in the songs table. Edit this, then run `npm run discography:fetch` and `npm run db:seed`. `spotifyTitles` are matched (case and punctuation insensitive) against the artist's releases on Spotify; set `spotifyId` to pin a specific edition. Live tracks are always skipped. Per release, `excludeTracks` drops tracks by their Spotify title and `renameTracks` maps a Spotify title to the title we show. `ignoredSpotifyReleases` are releases we chose not to seed, so the fetch report only lists new ones.",
+  "artist": {
+    "name": "Avenged Sevenfold",
+    "spotifyId": "0nmQIMXWTXfhgOBdNzhGOs"
+  },
+  "releases": [
+    {
+      "slug": "sounding-the-seventh-trumpet",
+      "title": "Sounding the Seventh Trumpet",
+      "type": "studio",
+      "releaseYear": 2001,
+      "spotifyTitles": ["Sounding the Seventh Trumpet"]
+    },
+    {
+      "slug": "waking-the-fallen",
+      "title": "Waking the Fallen",
+      "type": "studio",
+      "releaseYear": 2003,
+      "spotifyTitles": ["Waking the Fallen"]
+    },
+    {
+      "slug": "city-of-evil",
+      "title": "City of Evil",
+      "type": "studio",
+      "releaseYear": 2005,
+      "spotifyTitles": ["City of Evil"]
+    },
+    {
+      "slug": "avenged-sevenfold",
+      "title": "Avenged Sevenfold",
+      "type": "studio",
+      "releaseYear": 2007,
+      "spotifyTitles": ["Avenged Sevenfold"],
+      "excludeTracks": ["Almost Easy - Jam-Along Version"]
+    },
+    {
+      "slug": "nightmare",
+      "title": "Nightmare",
+      "type": "studio",
+      "releaseYear": 2010,
+      "spotifyTitles": ["Nightmare"]
+    },
+    {
+      "slug": "hail-to-the-king",
+      "title": "Hail to the King",
+      "type": "studio",
+      "releaseYear": 2013,
+      "spotifyTitles": ["Hail to the King"]
+    },
+    {
+      "slug": "the-stage",
+      "title": "The Stage",
+      "type": "studio",
+      "releaseYear": 2016,
+      "spotifyTitles": ["The Stage"],
+      "bonus": {
+        "$comment": "Studio bonus tracks of the 2017 deluxe edition (Dose + covers). Tracks already on the album and live tracks are skipped; they keep the deluxe track numbers (12+).",
+        "spotifyTitles": ["The Stage (Deluxe Edition)"],
+        "releaseYear": 2017
+      }
+    },
+    {
+      "slug": "life-is-but-a-dream",
+      "title": "Life Is But a Dream...",
+      "type": "studio",
+      "releaseYear": 2023,
+      "spotifyTitles": ["Life Is But a Dream..."]
+    },
+    {
+      "slug": "warmness-on-the-soul",
+      "title": "Warmness on the Soul",
+      "type": "ep",
+      "releaseYear": 2001,
+      "spotifyTitles": ["Warmness on the Soul"],
+      "optional": true
+    },
+    {
+      "slug": "black-reign",
+      "title": "Black Reign",
+      "type": "ep",
+      "releaseYear": 2018,
+      "spotifyTitles": ["Black Reign"],
+      "renameTracks": {
+        "Not Ready to Die - From \"Call of the Dead\"": "Not Ready to Die",
+        "Jade Helm - Instrumental": "Jade Helm"
+      }
+    },
+    {
+      "slug": "diamonds-in-the-rough",
+      "title": "Diamonds in the Rough",
+      "type": "compilation",
+      "releaseYear": 2008,
+      "spotifyTitles": ["Diamonds in the Rough", "Diamonds in the Rough (Remastered)"]
+    }
+  ],
+  "ignoredSpotifyReleases": [
+    {
+      "id": "7pb9ZipjQRimTjYOZpZ8lk",
+      "name": "Live in the LBC",
+      "reason": "live"
+    },
+    {
+      "id": "6GDViiMcSfNipyJDUW3obG",
+      "name": "Live At The GRAMMY Museum",
+      "reason": "live"
+    },
+    {
+      "id": "0Qm2vu5VZp2MKLb6yTxSgT",
+      "name": "Hail to the King: Deathbat (Original Video Game Soundtrack)",
+      "reason": "game theme music"
+    },
+    {
+      "id": "6V3hjAUhRZU5aLeNNxTOUo",
+      "name": "Waking The Fallen: Resurrected",
+      "reason": "reissue (demos + live) of Waking the Fallen"
+    },
+    {
+      "id": "39PF3joO0Aeifo7taOGzjA",
+      "name": "Eternal Rest (Live From Ventura Theater - January 2004)",
+      "reason": "live"
+    },
+    {
+      "id": "51vWPbME0bpgPjySGmXvm7",
+      "name": "So Far Away (Radio Edit)",
+      "reason": "edit of an album track"
+    },
+    {
+      "id": "4bOHtlygX58lh6LkfSTuH5",
+      "name": "Warped Tour Bootleg Single",
+      "reason": "live"
+    },
+    {
+      "id": "7mCTipdyAfByJBqBgyBbI0",
+      "name": "Not Ready to Die (From \"Call of the Dead\")",
+      "reason": "single of a Black Reign track"
+    }
+  ]
+}

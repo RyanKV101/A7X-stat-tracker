@@ -73,6 +73,16 @@ src/
 supabase/       config, migrations and seed data
 ```
 
+## Theme
+
+Dark, crimson and antique gold. Cinzel for headings (`font-display`), Inter for body text (`font-sans`), both via `next/font`.
+
+- **Tokens** live in `src/app/globals.css` in the `@theme` block (Tailwind 4 has no `tailwind.config`). The default Tailwind palette is switched off, so only these colors exist: `ink`, `bone`, `crimson`, `gold`, plus semantic aliases (`background`, `surface`, `surface-raised`, `border`, `border-strong`, `foreground`, `muted`, `subtle`, `primary`, `accent`, `danger`, `success`). Also a type scale (`text-display`, `text-h1`-`text-h3`, `text-eyebrow`), radius, shadows (`shadow-card`, `shadow-raised`, `shadow-glow-crimson`, `shadow-glow-gold`) and two utilities (`text-gold-gradient`, `divider-ornament`).
+- **Components** in `src/components/ui` (import from `@/components/ui`): Button (+ `buttonClasses` for links), Card, Input, Select, Tabs, Badge, Modal, Avatar.
+- **Style guide:** `/design` shows every token and component. Only in `npm run dev`; it 404s in production.
+- **Contrast:** all text pairings used by the components meet WCAG AA (4.5:1), borders and focus rings 3:1. Keep body text on `foreground`/`muted`/`subtle` and don't put `crimson-500` or darker text on dark backgrounds.
+- **Branding:** no official band logo or Deathbat as site branding.
+
 ## Branches
 
 - `main`: production

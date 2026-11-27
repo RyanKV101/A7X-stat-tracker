@@ -1,26 +1,176 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design tokens (Tailwind 4 keeps its config in CSS via @theme).
+ * Palette: near-black "ink", warm "bone" text, deep crimson and antique gold accents.
+ * Text/background pairings used by the components meet WCAG AA (see README -> Theme).
+ */
+@theme {
+  /* Colors */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-black: #000;
+  --color-white: #fff;
+
+  --color-ink-950: #0b090a;
+  --color-ink-900: #141012;
+  --color-ink-800: #1d171a;
+  --color-ink-700: #2a2125;
+  --color-ink-600: #4a3c42;
+  --color-ink-500: #7d6a72;
+
+  --color-bone-50: #f3ede4;
+  --color-bone-300: #bfb4a9;
+  --color-bone-400: #9a8f86;
+
+  --color-crimson-300: #f07a8a;
+  --color-crimson-400: #e5485e;
+  --color-crimson-500: #c8203c;
+  --color-crimson-600: #b0152f;
+  --color-crimson-700: #8c0f24;
+  --color-crimson-800: #5c0a18;
+  --color-crimson-900: #2e0710;
+
+  --color-gold-200: #f0e0b0;
+  --color-gold-300: #e6cf8c;
+  --color-gold-400: #d6b456;
+  --color-gold-500: #c29a2e;
+  --color-gold-600: #9a7a22;
+  --color-gold-700: #6e5718;
+  --color-gold-900: #261e0a;
+
+  --color-emerald-400: #5fc49a;
+  --color-emerald-900: #0e2a1f;
+
+  /* Semantic aliases */
+  --color-background: var(--color-ink-950);
+  --color-surface: var(--color-ink-900);
+  --color-surface-raised: var(--color-ink-800);
+  --color-border: var(--color-ink-700);
+  --color-border-strong: var(--color-ink-500);
+  --color-foreground: var(--color-bone-50);
+  --color-muted: var(--color-bone-300);
+  --color-subtle: var(--color-bone-400);
+  --color-primary: var(--color-crimson-700);
+  --color-primary-hover: var(--color-crimson-600);
+  --color-accent: var(--color-gold-400);
+  --color-danger: var(--color-crimson-400);
+  --color-success: var(--color-emerald-400);
+  --color-ring: var(--color-gold-400);
+
+  /* Typography */
+  --font-display: var(--font-cinzel), "Times New Roman", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-display: 3.5rem;
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: 0.02em;
+  --text-h1: 2.5rem;
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: 0.02em;
+  --text-h2: 1.875rem;
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: 0.02em;
+  --text-h3: 1.375rem;
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: 0.03em;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1rem;
+  --text-eyebrow--letter-spacing: 0.2em;
+
+  /* Spacing (Tailwind multiplies this base: p-4 = 1rem) */
+  --spacing: 0.25rem;
+
+  /* Radius: mostly sharp, a bit of softening */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.03) inset, 0 12px 32px -12px rgb(0 0 0 / 0.8);
+  --shadow-raised: 0 1px 0 0 rgb(255 255 255 / 0.05) inset, 0 24px 48px -16px rgb(0 0 0 / 0.9);
+  --shadow-glow-crimson: 0 0 0 1px rgb(200 32 60 / 0.4), 0 8px 28px -6px rgb(200 32 60 / 0.45);
+  --shadow-glow-gold: 0 0 0 1px rgb(214 180 86 / 0.35), 0 8px 28px -8px rgb(214 180 86 / 0.35);
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: dark;
+  }
+
+  html {
+    background-color: var(--color-background);
+  }
+
+  body {
+    background-color: var(--color-background);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgb(140 15 36 / 0.18), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 50% 110%, rgb(110 87 24 / 0.08), transparent 70%);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: var(--color-crimson-700);
+    color: var(--color-bone-50);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility text-gold-gradient {
+  background-image: linear-gradient(
+    180deg,
+    var(--color-gold-200),
+    var(--color-gold-400) 60%,
+    var(--color-gold-500)
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+@utility divider-ornament {
+  height: 1px;
+  background-image: linear-gradient(90deg, transparent, var(--color-gold-600), transparent);
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
